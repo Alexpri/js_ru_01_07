@@ -11,6 +11,7 @@ class Article extends Component {
         const { isOpen } = this.state
         const body = isOpen ? <section>{ article.text }</section> : null
         let listItemsComments;
+        //Так комменты будут показываться всегда, а надо их сворачивать/разворачивать
         if (article.comments) {
             listItemsComments = article.comments.map((comment) => <li key = {comment.id}><Comment comment = {comment.text}/></li>)
         }

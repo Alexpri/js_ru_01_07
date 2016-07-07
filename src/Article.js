@@ -8,22 +8,35 @@ class Article extends Component {
 
     render() {
         const article = this.props.article
-        const { isOpen } = this.state
+        const {
+            isOpen,
+            isOpenComments
+        } = this.state
         const body = isOpen ? <section>{ article.text }</section> : null
+        const textLink = isOpenComments ? "close comments" : "open comments"
         let listItemsComments;
+
         if (article.comments) {
             listItemsComments = article.comments.map((comment) => <li key = {comment.id}><Comment comment = {comment.text}/></li>)
         }
+
+        const listItemsWrapComments = isOpenComments ?  <ul> {listItemsComments} </ul> : null
 
         return (
             <div>
                 <h2 onClick = {this.toggleOpen}>{ article.title }</h2>
                 {body}
-                <ul>
-                    {listItemsComments}
-                </ul>
+                <a href="#" onClick = {this.toggleOpenComments}> {textLink} </a>
+                {listItemsWrapComments}                
             </div>
         )
+    }
+
+    toggleOpenComments = (ev) => {
+        ev.preventDefault();
+        this.setState({
+            isOpenComments: !this.state.isOpenComments
+        })
     }
 
     toggleOpen = (ev) => {

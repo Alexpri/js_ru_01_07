@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+//этого в здаднии небыло, но хорошо, что поэкспериментировали с созданием компонентов
 class Comments extends Component {
 	state = {
         isOpen: false

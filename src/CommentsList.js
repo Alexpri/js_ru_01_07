@@ -10,7 +10,7 @@ class CommentsList extends Component {
         const comments = this.props.comments
         const { isOpen } = this.state
         const textLink = isOpen ? "close comments" : "open comments"
-        let listItemsComments
+        let listItemsCommentsfocnosl
 
         if (comments) {
             listItemsComments = comments.map((comment) => <li key = {comment.id}><Comment comment = {comment}/></li>)

@@ -15,7 +15,7 @@ class Article extends Component {
         const body = isOpen ? <section>{ article.text }</section> : null
         const textLink = isOpenComments ? "close comments" : "open comments"
         let listItemsComments;
-
+        //лучше сделать отдельно компонент CommentList и инкапсулировать в нем логику сворачивания/разворачивания/отображения списка и т.д.
         if (article.comments) {
             listItemsComments = article.comments.map((comment) => <li key = {comment.id}><Comment comment = {comment.text}/></li>)
         }

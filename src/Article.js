@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Comment from './Comment'
+import CommentsList from './CommentsList'
 
 class Article extends Component {
     state = {
@@ -8,35 +8,16 @@ class Article extends Component {
 
     render() {
         const article = this.props.article
-        const {
-            isOpen,
-            isOpenComments
-        } = this.state
-        const body = isOpen ? <section>{ article.text }</section> : null
-        const textLink = isOpenComments ? "close comments" : "open comments"
-        let listItemsComments;
-
-        if (article.comments) {
-            listItemsComments = article.comments.map((comment) => <li key = {comment.id}><Comment comment = {comment.text}/></li>)
-        }
-
-        const listItemsWrapComments = isOpenComments ?  <ul> {listItemsComments} </ul> : null
+        const { isOpen } = this.state
+        const CommentsListBody = <CommentsList comments = {article.comments}/>
+        const body = isOpen ? <section>{ article.text }{CommentsListBody}</section> : null
 
         return (
             <div>
                 <h2 onClick = {this.toggleOpen}>{ article.title }</h2>
-                {body}
-                <a href="#" onClick = {this.toggleOpenComments}> {textLink} </a>
-                {listItemsWrapComments}                
+                {body}          
             </div>
         )
-    }
-
-    toggleOpenComments = (ev) => {
-        ev.preventDefault();
-        this.setState({
-            isOpenComments: !this.state.isOpenComments
-        })
     }
 
     toggleOpen = (ev) => {

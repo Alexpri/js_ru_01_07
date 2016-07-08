@@ -8,12 +8,12 @@ class Comments extends Component {
     render() {
         const comment = this.props.comment
         const { isOpen } = this.state
-        const body = isOpen ? <span>{ comment }</span> : null
+        const body = isOpen ? <span>{comment.text}</span> : null
         const textLink = isOpen ? "close" : "open"
 
         return (
             <div>
-                <h3><a href="#" onClick = {this.toggleOpen}>{textLink}</a></h3>
+                <h3><a href="#" onClick = {this.toggleOpen}>{comment.user}</a></h3>
                 {body}
             </div>
         )

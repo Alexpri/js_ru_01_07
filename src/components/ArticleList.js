@@ -37,6 +37,7 @@ class ArticleList extends Component {
         return (
             <div>
                 <h1>Article list</h1>
+                {/*Не стоит писать подобную логику в JSX, выноси это в переменные*/}
                 {!from && !to && <p>Please select the <strong>Start date</strong>.</p>}
                 {from && !to && <p>Please select the <strong>Finish date</strong>.</p>}
                 {from && to &&

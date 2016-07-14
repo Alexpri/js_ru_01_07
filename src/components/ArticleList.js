@@ -8,13 +8,29 @@ import 'react-day-picker/lib/style.css'
 
 class ArticleList extends Component {
 
+
     state = {
         selectedArticles: null,
-        selectedDayStart: null,
-        selectedDayEnd: null
+        from: null,
+        to: null
+    }
+
+    handleDayClick = (e, day) => {
+        const range = DateUtils.addDayToRange(day, this.state);
+        this.setState(range)
+    }
+
+
+    handleResetClick = (e) => {
+        e.preventDefault();
+        this.setState({
+            from: null,
+            to: null
+        });
     }
 
     render() {
+        const { from, to } = this.state;
         const { articles, isItemOpen, toggleOpenItem } = this.props
 
         const listItems = articles.map((article) => <li key={article.id}>
@@ -29,14 +45,18 @@ class ArticleList extends Component {
             value: article.id
         }))
 
-        const dateStart = this.state.selectedDayStart ? this.state.selectedDayStart.toLocaleDateString() : null
-        const dateEnd = this.state.selectedDayEnd ? this.state.selectedDayEnd.toLocaleDateString() : null
 
         return (
             <div>
                 <h1>Article list</h1>
-                <div className="date-start">Date start: {dateStart}</div>
-                <div className="date-end">Date end: {dateEnd} </div>
+                {!from && !to && <p>Please select the <strong>Start date</strong>.</p>}
+                {from && !to && <p>Please select the <strong>Finish date</strong>.</p>}
+                {from && to &&
+                  <p>
+                    Start date: {moment(from).format('L')} Finish date: {moment(to).format('L')}.
+                    {' '}<a href="#" onClick={this.handleResetClick}>Reset</a>
+                  </p>
+                }
                 <Select
                     options = {options}
                     multi = {true}
@@ -44,8 +64,9 @@ class ArticleList extends Component {
                     onChange = {this.handleSelectChange}
                 />
                 <DayPicker
-                    onDayClick={ this.handleDateChange }
-
+                  ref="daypicker"
+                  selectedDays={day => DateUtils.isDayInRange(day, { from, to })}
+                  onDayClick={this.handleDayClick}
                 />
                 <ul>
                     {listItems}
@@ -61,27 +82,6 @@ class ArticleList extends Component {
         })
     }
 
-    handleDateChange = (e, selectedDay, modifiers) => {
-
-        if (this.state.selectedDayStart != null) {
-
-            if (selectedDay.toLocaleDateString() >= this.state.selectedDayStart.toLocaleDateString()) {
-                writeStateStart(selectedDay)
-            } else {
-                writeStateEnd(selectedDay)
-            }
-        } else {
-            writeStateStart(selectedDay)
-        }
-    }
-
-    writeStateStart = (selectedDay) => {
-        this.setState({ selectedDayStart: selectedDay })
-    }
-
-    writeStateEnd = (selectedDay) => {
-        this.setState({ selectedDayStart: selectedDay })
-    }
 }
 
 export default oneOpen(ArticleList)

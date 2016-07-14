@@ -15,19 +15,7 @@ class ArticleList extends Component {
         to: null
     }
 
-    handleDayClick = (e, day) => {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range)
-    }
-
-
-    handleResetClick = (e) => {
-        e.preventDefault();
-        this.setState({
-            from: null,
-            to: null
-        });
-    }
+   
 
     render() {
         const { from, to } = this.state;
@@ -80,6 +68,20 @@ class ArticleList extends Component {
         this.setState({
             selectedArticles
         })
+    }
+
+     handleDayClick = (e, day) => {
+        const range = DateUtils.addDayToRange(day, this.state);
+        this.setState(range)
+    }
+
+
+    handleResetClick = (e) => {
+        e.preventDefault();
+        this.setState({
+            from: null,
+            to: null
+        });
     }
 
 }

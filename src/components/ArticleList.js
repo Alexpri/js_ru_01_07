@@ -8,17 +8,13 @@ import 'react-day-picker/lib/style.css'
 
 class ArticleList extends Component {
 
-
     state = {
         selectedArticles: null,
         from: null,
         to: null
     }
 
-   
-
     render() {
-        const { from, to } = this.state;
         const { articles, isItemOpen, toggleOpenItem } = this.props
 
         const listItems = articles.map((article) => <li key={article.id}>
@@ -32,19 +28,10 @@ class ArticleList extends Component {
             label: article.title,
             value: article.id
         }))
-
-
         return (
             <div>
                 <h1>Article list</h1>
-                {!from && !to && <p>Please select the <strong>Start date</strong>.</p>}
-                {from && !to && <p>Please select the <strong>Finish date</strong>.</p>}
-                {from && to &&
-                  <p>
-                    Start date: {moment(from).format('L')} Finish date: {moment(to).format('L')}.
-                    {' '}<a href="#" onClick={this.handleResetClick}>Reset</a>
-                  </p>
-                }
+                {this.getRangeTitle()}
                 <Select
                     options = {options}
                     multi = {true}
@@ -52,9 +39,9 @@ class ArticleList extends Component {
                     onChange = {this.handleSelectChange}
                 />
                 <DayPicker
-                  ref="daypicker"
-                  selectedDays={day => DateUtils.isDayInRange(day, { from, to })}
-                  onDayClick={this.handleDayClick}
+                    ref="daypicker"
+                    selectedDays={day => DateUtils.isDayInRange(day, this.state)}
+                    onDayClick={this.handleDayClick}
                 />
                 <ul>
                     {listItems}
@@ -63,27 +50,25 @@ class ArticleList extends Component {
         )
     }
 
+    getRangeTitle() {
+        const { from, to } = this.state
+        const fromText = from && `Start date: ${from.toDateString()}`
+        const toText = to && `Finish date: ${to.toDateString()}`
+
+        return <p>{fromText} {toText}</p>
+    }
+
+    handleDayClick = (e, day) => {
+        const range = DateUtils.addDayToRange(day, this.state);
+        this.setState(range)
+    }
+
     handleSelectChange = (selectedArticles) => {
         console.log(selectedArticles)
         this.setState({
             selectedArticles
         })
     }
-
-     handleDayClick = (e, day) => {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range)
-    }
-
-
-    handleResetClick = (e) => {
-        e.preventDefault();
-        this.setState({
-            from: null,
-            to: null
-        });
-    }
-
 }
 
 export default oneOpen(ArticleList)

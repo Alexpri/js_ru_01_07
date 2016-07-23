@@ -24,7 +24,7 @@ class Filters extends Component {
                 <div>
                     {this.getRangeTitle()}
                     <Select
-                        options = {options}
+                        options = {options.toJS()}
                         multi = {true}
                         value = {filters.selectedArticles}
                         onChange = {this.handleSelectChange}
@@ -61,5 +61,8 @@ class Filters extends Component {
 
 export default connect (state => {
     const { articles, filters } = state
-    return { articles, filters }
+    return {
+        articles: articles.valueSeq(),
+        filters
+    }
 }, { changeFilters })(Filters)

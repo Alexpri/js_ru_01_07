@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ArticleList from '../components/ArticleList'
+import filtersArticle from '../utils/filters'
 import { connect } from 'react-redux'
 
 class Articles extends Component {
@@ -13,6 +14,9 @@ class Articles extends Component {
     }
 }
 
-export default connect(
-    ({articles}) => ({articles})
+export default connect(({articles, filters}) => {
+    	return {
+    		articles: filtersArticle(articles, filters)
+    	}
+    }
 )(Articles)

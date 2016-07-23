@@ -15,11 +15,10 @@ class ArticleList extends Component {
             />
         </li>)
 
-        
         return (
             <div>
                 <h1>Article list</h1>
-                <Filters/>
+                <Filters />
                 <ul>
                     {listItems}
                 </ul>

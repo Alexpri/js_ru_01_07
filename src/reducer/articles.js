@@ -1,7 +1,7 @@
 import { normalizedArticles } from '../fixtures'
 import { DELETE_ARTICLE } from '../constants'
-import { OrderedMap, Record } from 'immutable'
-
+import { Record } from 'immutable'
+import { recordFormArray } from './utils'
 
 const Article = Record({
 	    "id": "",
@@ -9,19 +9,16 @@ const Article = Record({
         "title": "",
         "text": "",
         "comments": []
-
 })
 
-const defaultArticles = normalizedArticles.reduce((acc, el) => {
-	return acc.set(el.id, new Article(el))
-}, new OrderedMap({}))
+const defaultArticles = recordFormArray(Article, normalizedArticles)
 
 export default (articles = defaultArticles, action) => {
     const { type, payload } = action
 
     switch (type) {
         case DELETE_ARTICLE:
-            return articles.filter(article => article.id != payload.id)
+            return articles.delete(payload.id)
     }
     return articles
 }

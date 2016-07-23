@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ArticleList from '../components/ArticleList'
-import filtersArticle from '../utils/filters'
+import { filtersArticle } from '../reducer/utils'
 import { connect } from 'react-redux'
 
 class Articles extends Component {

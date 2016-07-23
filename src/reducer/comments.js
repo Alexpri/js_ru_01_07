@@ -1,8 +1,17 @@
 import {  }	from '../constants'
 import { normalizedComments } from '../fixtures'
-import { OrderMap, Record } from 'immutable'
+import { Record } from 'immutable'
+import { recordFormArray } from './utils'
 
-export default (comments = {}, action) => {
+const Comment = Record({
+	"id": null,
+    "user": "",
+    "text": ""
+})
+
+const defaultArticles = recordFormArray(Comment, normalizedComments)
+
+export default (comments = defaultArticles, action) => {
 	const { type, payload } = action
 
 	return comments

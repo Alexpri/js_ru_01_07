@@ -1,4 +1,4 @@
-import { ADD_COMMENT }from '../constants'
+import { ADD_COMMENT } from '../constants'
 import { normalizedComments } from '../fixtures'
 import { Record } from 'immutable'
 import { recordsFromArray } from './utils'
@@ -17,7 +17,7 @@ export default (comments = defaultComments, action) => {
 
     switch (type) {
     	case ADD_COMMENT:
-            return comments.set(payload.change)
+            return comments.set(payload.change.id, new Comment(payload.change))
 
     }
 

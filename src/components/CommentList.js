@@ -26,12 +26,12 @@ class CommentList extends Component {
     }
 
     render() {
-        const { commentObjects, isOpen, toggleOpen } = this.props
+        const { commentObjects, isOpen, toggleOpen, articleId } = this.props
 
         if (!commentObjects || !commentObjects.length) return <h3>no comments yet</h3>
 
         const commentItems = commentObjects.map(comment => <li key = {comment.id}><Comment comment = {comment}/></li>)
-        const commentContent = <div> <ul>{commentItems}</ul> <CommentForm comments={commentObjects}  /> </div>
+        const commentContent = <div> <ul>{commentItems}</ul> <CommentForm comments={commentObjects} articleId={articleId}  /> </div>
         const body = isOpen ? commentContent : null
         const linkText = isOpen ? 'close comments' : 'show comments'
         return (
@@ -43,9 +43,10 @@ class CommentList extends Component {
     }
 }
 
-export default connect((state, { comments }) => {
+export default connect((state, { comments, articleId }) => {
     //comments.map(id => console.log('connect', state.comments.get(id).toJS))
     return {
-        commentObjects: comments.map(id => state.comments.get(id))
+        commentObjects: comments.map(id => state.comments.get(id)),
+        articleId: articleId
     }
 })(toggleOpen(CommentList))

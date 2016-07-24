@@ -10,13 +10,16 @@ class CommentForm extends Component {
     state = {
         id: null,
         user: '',
-        text: ''
+        text: '',
+        articleId: null
     }
 
     render() {
         const labelStyle = {
             display: 'block',
         }
+
+        const { articleId } = this.props
 
         return (
             <form id="form-add-comment" onSubmit={this.commentChange}>
@@ -49,7 +52,8 @@ class CommentForm extends Component {
     changeId = () => {
         const uid = () => Math.random().toString(16).slice(2)
         this.setState({
-            id: uid()
+            id: uid(),
+            articleId: this.props.articleId
         })
     }
 
@@ -59,9 +63,10 @@ class CommentForm extends Component {
     }
 }
 
-export default connect((state, { comments }) => {
-    console.log('connect', state);
+export default connect((state, { comments, articleId }) => {
+    console.log(articleId);
     return {
-        comments: comments
+        comments: comments,
+        articleId: articleId
     }
 }, { addComment })(CommentForm)

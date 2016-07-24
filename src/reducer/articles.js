@@ -17,14 +17,14 @@ const defaultArticles = recordsFromArray(Article, normalizedArticles)
 export default (articles = defaultArticles, action) => {
     const { type, payload } = action
 
-    console.log(articles)
+    console.log(action);
 
     switch (type) {
         case DELETE_ARTICLE:
             return articles.delete(payload.id)
         case ADD_COMMENT:
             //return articles.updateIn([articles.id, 'comments'], comments =>  console.log(articles))
-            return articles.updateIn([articles.id, 'comments'], articles => payload.change.id)
+            return articles.update(payload.articleId, v => v.push(payload.change.id))
             // return articles.updateIn([payload.change.id, 'comments'], articles => articles.id)
     }
     //articles.set()

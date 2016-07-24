@@ -7,7 +7,7 @@ const defaultFilters = {
 }
 
 export default (filters = defaultFilters, action) => {
-    const { type, payload, response, error } = action
+    const { type, payload } = action
 
     switch (type) {
         case CHANGE_FILTERS:

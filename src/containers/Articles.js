@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ArticleList from '../components/ArticleList'
-import { filtersArticle } from '../reducer/utils'
+import { filterArticles } from './utils'
 import { connect } from 'react-redux'
 
 class Articles extends Component {
@@ -14,14 +14,8 @@ class Articles extends Component {
     }
 }
 
-export default connect(({ articles, filters }) => {
+export default connect(({ articles, filters, comments }) => {
     return {
         articles: filterArticles(articles, filters)
     }
 })(Articles)
-
-function filterArticles(articles, { from, to, selectedArticles }) {
-    return articles.valueSeq()
-        .filter((article) => selectedArticles.length ? selectedArticles.includes(article.id) : true)
-        .filter(article => (!from || Date.parse(article.date) > from) && (!to || Date.parse(article.date) < to))
-}

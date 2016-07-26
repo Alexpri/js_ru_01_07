@@ -12,12 +12,14 @@ const Comment = Record({
 const defaultComments = recordsFromArray(Comment, normalizedComments)
 
 export default (comments = defaultComments, action) => {
-    const { type, payload } = action
-    console.log('reducer', payload, comments);
+    const { type, payload, randomId } = action
 
     switch (type) {
     	case ADD_COMMENT:
-            return comments.set(payload.change.id, new Comment(payload.change))
+            return comments.set(randomId, new Comment({
+                id: randomId,
+                ...payload
+            }))
 
     }
 

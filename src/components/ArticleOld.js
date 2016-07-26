@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentList from './CommentList'
+import CommentList from './components/CommentList'
 import toggleOpen from '../mixins/toggleOpen'
 
 const ArticleOld = React.createClass({

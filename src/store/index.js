@@ -1,12 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from '../reducer'
 import logger from '../middlewares/logger'
-import randomID from '../middlewares/randomID'
+import randomId from '../middlewares/randomId'
+import api from '../middlewares/api'
 
 const dumbMiddleware = store => next => action => next({...action, addition: 'hello world'})
 
 const enhancer = compose(
-    applyMiddleware(randomID, dumbMiddleware, logger),
+    applyMiddleware(dumbMiddleware, randomId, api, logger),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 )
 

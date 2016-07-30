@@ -1,8 +1,8 @@
 import { normalizedArticles } from '../fixtures'
 import { DELETE_ARTICLE } from '../constants'
 import { ADD_COMMENT } from '../constants'
-import { Record } from 'immutable'
-import { recordsFromArray } from './utils'
+import { Record, OrderedMap } from 'immutable'
+import { recordsFromArray, } from './utils'
 
 const Article = Record({
     "id": "",
@@ -12,7 +12,7 @@ const Article = Record({
     "comments": []
 })
 
-const defaultArticles = recordsFromArray(Article, normalizedArticles)
+const defaultArticles = new OrderedMap({})
 
 export default (articles = defaultArticles, action) => {
     const { type, payload, randomId } = action

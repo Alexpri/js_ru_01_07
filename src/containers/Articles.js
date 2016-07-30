@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import ArticleList from '../components/ArticleList'
 import { filterArticles } from './utils'
 import { connect } from 'react-redux'
-import { loadAllArticles } from '../AC/articles'
+import { loadAllArticles, loadAllArticlesAlt } from '../AC/articles'
 
 class Articles extends Component {
     static propTypes = {
@@ -26,4 +26,4 @@ export default connect(({ articles, filters }) => {
     	loading: articles.get('loading'),
         articles: filterArticles(articles.get('entities'), filters)
     }
-}, { loadAllArticles })(Articles)
+}, { loadAllArticles: loadAllArticlesAlt })(Articles)

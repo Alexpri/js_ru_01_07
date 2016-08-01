@@ -1,5 +1,4 @@
-import { DELETE_ARTICLE, LOAD_ALL_ARTICLES, START, SUCCESS } from '../constants'
-import { ADD_COMMENT } from '../constants'
+import { ADD_COMMENT, DELETE_ARTICLE, LOAD_ALL_ARTICLES, START, SUCCESS } from '../constants'
 import { Record, OrderedMap, Map, List } from 'immutable'
 import { recordsFromArray, } from './utils'
 
@@ -23,6 +22,8 @@ const defaultState = new Map({
 
 export default (state = defaultState, action) => {
     const { type, payload, response, randomId } = action
+
+    console.log(response);
 
     switch (type) {
         // case DELETE_ARTICLE:

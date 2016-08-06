@@ -13,8 +13,7 @@ class RootContainer extends Component {
         return (
             <Provider store = {store}>
                 <div>
-                    <Counter />
-                    <Articles />
+                    {this.props.children}
                 </div>
             </Provider>
         )

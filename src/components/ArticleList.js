@@ -1,7 +1,6 @@
 import React, { Component }  from 'react'
 import Article from './Article/index'
 import oneOpen from '../decorators/oneOpen'
-import Filters from '../containers/Filters'
 
 class ArticleList extends Component {
 
@@ -19,7 +18,6 @@ class ArticleList extends Component {
         return (
             <div>
                 <h1>Article list</h1>
-                <Filters />
                 <ul>
                     {listItems}
                 </ul>

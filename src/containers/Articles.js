@@ -10,7 +10,8 @@ class Articles extends Component {
     };
 
     componentDidMount() {
-    	this.props.loadAllArticles()
+        const { loadAllArticles, loading, loaded } = this.props
+    	if (!loaded && !loading) loadAllArticles()
     }
 
     render() {
@@ -24,6 +25,7 @@ class Articles extends Component {
 export default connect(({ articles, filters }) => {
     return {
     	loading: articles.get('loading'),
+        loaded: articles.get('loaded'),
         articles: filterArticles(articles.get('entities'), filters)
     }
 }, { loadAllArticles: loadAllArticlesAlt })(Articles)

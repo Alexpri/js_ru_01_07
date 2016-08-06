@@ -10,12 +10,10 @@ export default store => next => action => {
 		...rest
 	})
 
-	setTimeout(function () {
-		$.get(callAPI)
-			.done(response => {
-				//console.log(response)
-				next({type: type + SUCCESS, response, ...rest})
-			})
-			.fail(error => next({type: type + FAIL, error, ...rest}))
-	}, 1000)
+	$.get(callAPI)
+		.done(response => {
+			//console.log(response)
+			next({type: type + SUCCESS, response, ...rest})
+		})
+		.fail(error => next({type: type + FAIL, error, ...rest}))
 }

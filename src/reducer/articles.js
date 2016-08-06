@@ -1,12 +1,14 @@
-import { ADD_COMMENT, DELETE_ARTICLE, LOAD_ALL_ARTICLES, START, SUCCESS } from '../constants'
+import { ADD_COMMENT, DELETE_ARTICLE, LOAD_ALL_ARTICLES, LOAD_ARTICLE_COMMENTS, START, SUCCESS } from '../constants'
 import { Record, OrderedMap, Map, List } from 'immutable'
-import { recordsFromArray, } from './utils'
+import { recordsFromArray } from './utils'
 
 const Article = Record({
     "id": "",
     "date": "",
     "title": "",
     "text": "",
+    "commentsLoading": false,
+    "commentsLoaded": false,
     "comments": []
 })
 
@@ -23,8 +25,6 @@ const defaultState = new Map({
 export default (state = defaultState, action) => {
     const { type, payload, response, randomId } = action
 
-    console.log(response);
-
     switch (type) {
         // case DELETE_ARTICLE:
         //     return articles.delete(payload.id)
@@ -37,6 +37,12 @@ export default (state = defaultState, action) => {
                         .set('loading', false)
                         .set('entities', recordsFromArray(Article, response))
             // return state.update('entities', entities => entities.merge(recordsFromArray(Article, response)))
+        case LOAD_ARTICLE_COMMENTS + START:
+            return state.setIn(['entities', payload.articleId, "commentsLoading"], false)
+
+        case LOAD_ARTICLE_COMMENTS + SUCCESS:
+        console.log(payload);
+            return state.setIn(['entities', payload.articleId, "commentsLoaded"], true)
     }
     //articles.set()
     //articles.update()

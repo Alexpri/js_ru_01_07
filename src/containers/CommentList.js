@@ -3,12 +3,13 @@ import Comment from './../components/Comment'
 import CommentForm from './../components/CommentForm'
 import toggleOpen from '../decorators/toggleOpen'
 import { connect } from 'react-redux'
-import { addComment, loadAllComments } from '../AC/comments'
+import { addComment, loadComments } from '../AC/comments'
 
 class CommentList extends Component {
 
-    componentDidMount() {
-        this.props.loadAllComments(this.props.article.id)
+    componentWillReceiveProps({ isOpen, article, loadComments }) {
+        console.log(article);
+        if (isOpen && !article.commentsLoaded && !article.commentsLoading) loadComments(article.id)
     }
 
     render() {
@@ -28,9 +29,7 @@ class CommentList extends Component {
     getBody() {
         const { isOpen, article, commentObjects, addComment, loading } = this.props
         if (!isOpen) return null
-        console.log('commentObjects', commentObjects);
-        //loadAllComments(this.props.article.id)
-        if (loading) return <h2>Loading...</h2>
+        if (article.commentsLoading || !article.commentsLoaded) return <h3>Loading...</h3>
         const commentItems = commentObjects.map(comment => <li key = {comment.id}><Comment comment = {comment}/></li>)
         return (
             <div>
@@ -43,7 +42,6 @@ class CommentList extends Component {
 
 export default connect((state, { article }) => {
     return {
-        loading: state.comments.get('loading'),
-        commentObjects: article.comments.map(id => state.comments.get('entities'))
+        commentObjects: article.comments.map(id => state.comments.getIn(['entities', id ]))
     }
-}, { addComment, loadAllComments })(toggleOpen(CommentList))
+}, { addComment, loadComments })(toggleOpen(CommentList))

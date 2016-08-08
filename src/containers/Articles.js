@@ -19,13 +19,14 @@ class Articles extends Component {
         if (loading) return <h1>Loading...</h1>
         return <div>
             <ArticleList articles = {articles} />
+            {this.props.children}
         </div>
     }
 }
 
 export default connect(({ articles, filters }) => {
     return {
-    	loading: articles.get('loading'),
+        loading: articles.get('loading'),
         loaded: articles.get('loaded'),
         articles: filterArticles(articles.get('entities'), filters)
     }

@@ -6,7 +6,10 @@ const Article = Record({
     "id": "",
     "date": "",
     "title": "",
-    "text": ""
+    "text": "",
+    "commentsLoading": false,
+    "commentsLoaded": false,
+    "comments": []
 })
 
 const defaultArticles = recordsFromArray(Article, [])
@@ -40,6 +43,14 @@ export default (state = defaultState, action) => {
                 .set('loaded', true)
                 .set('entities', recordsFromArray(Article, response))
             //return state.update('entities', entities => entities.merge(recordsFromArray(Article, response)))
+
+        case LOAD_ARTICLE_COMMENTS + START:
+            return state.setIn(['entities', payload.articleId, 'commentsLoading'], true)
+
+        case LOAD_ARTICLE_COMMENTS + SUCCESS:
+            return state
+                .setIn(['entities', payload.articleId, 'commentsLoading'], false)
+                .setIn(['entities', payload.articleId, 'commentsLoaded'], true)
     }
     //articles.set()
     //articles.update()

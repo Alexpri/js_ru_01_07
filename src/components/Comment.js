@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react'
 
 function Comment(props) {
     if (!props.comment) return <h3>Something</h3>
-    const { comment } = props
+    const { comment: { text, user } } = props
     return (
         <div>
-            <p>{comment.get('text')}</p>
-            <b>by {comment.get('user')}</b>
+            <p>{text}</p>
+            <b>by {user}</b>
         </div>
     )
 }

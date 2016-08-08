@@ -1,4 +1,4 @@
-import { ADD_COMMENT, LOAD_ALL_COMMENTS, START, SUCCESS } from '../constants'
+import { ADD_COMMENT, LOAD_ARTICLE_COMMENTS, LOAD_COMMENTS_FOR_PAGE, START, SUCCESS } from '../constants'
 import { Record, List, Map } from 'immutable'
 import { recordsFromArray } from './utils'
 
@@ -14,8 +14,6 @@ const defaultState = new Map({
     loading: false,
     loaded: false,
     errors: new List([]),
-    commentsLoading: false,
-    commentsLoaded: false,
     entities: defaultComments
 })
 
@@ -29,15 +27,18 @@ export default (state = defaultState, action) => {
                 ...payload
             }))
 
-        case LOAD_ALL_COMMENTS + START:
-            console.log('start')
-            return state.setIn(['commentsLoading'], true)
+        case LOAD_ARTICLE_COMMENTS + SUCCESS:
+            return state.update('entities', entities => entities.merge(recordsFromArray(Comment, response)))
 
-        case LOAD_ALL_COMMENTS + SUCCESS:
+        case LOAD_COMMENTS_FOR_PAGE + START:
+            return state.setIn(['pagination', payload.page], new List([]))
+
+        case LOAD_COMMENTS_FOR_PAGE + SUCCESS:
             return state
-                .setIn(['commentsLoading'], false)
-                .setIn(['commentsLoaded'], true)
                 .update('entities', entities => entities.merge(recordsFromArray(Comment, response.records)))
+                .setIn(['pagination', payload.page], new List(response.records.map(record => record.id)))
+                .set('total', response.total)
+
     }
 
     return state

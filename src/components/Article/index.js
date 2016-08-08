@@ -42,8 +42,4 @@ class Article extends Component {
     }
 }
 
-export default connect((state, { article }) => {
-    return {
-        articleId: article.id
-    }
-}, { deleteArticle })(Article)
+export default connect(null, { deleteArticle })(Article)

@@ -1,18 +1,13 @@
 import React, { Component }  from 'react'
-import Article from './Article/index'
-import oneOpen from '../decorators/oneOpen'
+import { Link } from 'react-router'
 
 class ArticleList extends Component {
 
 
     render() {
-        const { articles, isItemOpen, toggleOpenItem } = this.props
-
+        const { articles } = this.props
         const listItems = articles.map((article) => <li key={article.id}>
-            <Article article = {article}
-                isOpen = {isItemOpen(article.id)}
-                openArticle = {toggleOpenItem(article.id)}
-            />
+           <Link to={`/articles/${article.id}`}>{article.title}</Link>
         </li>)
 
         return (
@@ -26,4 +21,4 @@ class ArticleList extends Component {
     }
 }
 
-export default oneOpen(ArticleList)
+export default ArticleList

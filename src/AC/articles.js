@@ -8,22 +8,26 @@ export function deleteArticle(id) {
     }
 }
 
-export function loadAllArticles () {
-	return {
-		type: LOAD_ALL_ARTICLES,
-		callAPI: '/api/article'
-	}
+export function loadAllArticles() {
+    return {
+        type: LOAD_ALL_ARTICLES,
+        callAPI: '/api/article'
+    }
 }
 
-export function loadAllArticlesAlt () {
-	return (dispatch) => {
+export function loadAllArticlesAlt() {
+    return (dispatch, state) => {
+        dispatch({
+            type: LOAD_ALL_ARTICLES + START
+        })
 
-		dispatch({
-			type: LOAD_ALL_ARTICLES + START
-		})
+        $.get('/api/article')
+            .done(response => dispatch({ type: LOAD_ALL_ARTICLES + SUCCESS, response }))
+            .fail(error => dispatch({ type: LOAD_ALL_ARTICLES + FAIL, error }))
 
-		$.get('/api/article')
-			.done(response => dispatch({type: LOAD_ALL_ARTICLES + SUCCESS, response}))
-			.fail(error => dispatch({type: LOAD_ALL_ARTICLES + FAIL, error}))
-	}
+    }
+}
+
+export function defferedDelete(id) {
+    return (dispatch) => dispatch({type: DELETE_ARTICLE, payload: { id }})
 }

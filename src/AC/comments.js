@@ -1,4 +1,4 @@
-import { ADD_COMMENT, LOAD_ARTICLE_COMMENTS } from '../constants'
+import { ADD_COMMENT, LOAD_ALL_COMMENTS } from '../constants'
 
 export function addComment(comment, articleId) {
     return {
@@ -8,10 +8,9 @@ export function addComment(comment, articleId) {
     }
 }
 
-export function loadComments(articleId) {
+export function loadAllComments() {
 	return {
-        type: LOAD_ARTICLE_COMMENTS,
-        payload: { articleId },
-        callAPI: `/api/comment?article=${articleId}`
+        type: LOAD_ALL_COMMENTS,
+        callAPI: '/api/comment'
     }
 }

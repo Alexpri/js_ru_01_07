@@ -48,7 +48,6 @@ class Filters extends Component {
     handleDayClick = (e, day) => {
         const { filters, changeFilters } = this.props
         const range = DateUtils.addDayToRange(day, filters);
-        console.log(range)
         changeFilters(range)
     }
 

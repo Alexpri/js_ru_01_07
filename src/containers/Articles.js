@@ -11,14 +11,15 @@ class Articles extends Component {
 
     componentDidMount() {
         const { loadAllArticles, loading, loaded } = this.props
-    	if (!loaded && !loading) loadAllArticles()
+        if (!loaded && !loading) loadAllArticles()
     }
 
     render() {
         const { articles, loading } = this.props
-        if (loading) return <h2>Loading...</h2>
-
-        return <ArticleList articles = {articles} />
+        if (loading) return <h1>Loading...</h1>
+        return <div>
+            <ArticleList articles = {articles} />
+        </div>
     }
 }
 

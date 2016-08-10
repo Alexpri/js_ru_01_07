@@ -32,6 +32,7 @@ class CommentsPage extends Component {
 
 function checkAndLoad(props) {
     const { params: { page }, comments, loadCommentsForPage } = props
+    console.log("comments", comments);
     if (!comments) loadCommentsForPage(page)
 }
 

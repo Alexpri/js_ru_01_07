@@ -37,7 +37,6 @@ export default (state = defaultState, action) => {
             return state.set('loading', true)
 
         case LOAD_ALL_ARTICLES + SUCCESS:
-        console.log(response);
             return state
                 .set('loading', false)
                 .set('loaded', true)

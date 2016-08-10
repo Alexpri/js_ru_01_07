@@ -13,10 +13,10 @@ class RootContainer extends Component {
             <Provider store = {store}>
                 <div>
                     <ul>
-                        <li><Link to="/articles">article list</Link></li>
-                        <li><Link to="/counter">counter</Link></li>
-                        <li><Link to="/filters">filters</Link></li>
-                        <li><Link to="/comments/1">comments</Link></li>
+                        <li><Link to="/articles"  activeClassName = "menu-link-active">article list</Link></li>
+                        <li><Link to="/counter"  activeClassName = "menu-link-active">counter</Link></li>
+                        <li><Link to="/filters"  activeClassName = "menu-link-active">filters</Link></li>
+                        <li><Link to="/comments"  activeClassName = "menu-link-active">comments</Link></li>
                     </ul>
                     {this.props.children}
                 </div>

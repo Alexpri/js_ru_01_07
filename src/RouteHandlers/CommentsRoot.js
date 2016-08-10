@@ -22,7 +22,6 @@ class CommentRoot extends Component {
 
     getLinks() {
         const { total } = this.props
-    	console.log(total)
         if (!total) return null
         const links = Array(...Array(Math.floor((total - 1)/5) + 1))
             .map((_, index) => (

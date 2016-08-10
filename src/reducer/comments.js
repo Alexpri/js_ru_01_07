@@ -34,6 +34,7 @@ export default (state = defaultState, action) => {
             return state.setIn(['pagination', payload.page], new List([]))
 
         case LOAD_COMMENTS_FOR_PAGE + SUCCESS:
+        console.log(payload.page)
             return state
                 .update('entities', entities => entities.merge(recordsFromArray(Comment, response.records)))
                 .setIn(['pagination', payload.page], new List(response.records.map(record => record.id)))

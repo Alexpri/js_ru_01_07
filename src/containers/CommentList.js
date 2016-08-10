@@ -40,7 +40,6 @@ class CommentList extends Component {
 }
 
 export default connect((state, { article }) => {
-    console.log(article)
     return {
         commentObjects: article.comments.map(id => state.comments.getIn(['entities', id]))
     }
